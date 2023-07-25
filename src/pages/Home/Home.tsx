@@ -41,7 +41,7 @@ const Home = () => {
       <header className="flex justify-between max-w-2xl p-5">
         <div>
           <Greeting />
-          <TaskSummary count={data.length} />
+          <TaskSummary count={uncompleteTasks.length} />
         </div>
 
         <TaskSearch search={search} onSearchChange={setSearch} />

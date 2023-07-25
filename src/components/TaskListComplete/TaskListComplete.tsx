@@ -1,6 +1,6 @@
 import {Task} from "../../api/tasks";
-import TaskActionsProvider from "../TaskActionsProvider";
-import TaskItem from "../TaskItem";
+import useDisclosure from "../../hooks/useDisclosure";
+import TaskList from "../TaskList";
 
 type Props = {
   tasks: Task[];
@@ -9,29 +9,16 @@ type Props = {
 const TaskListComplete = (props: Props) => {
   const {tasks} = props;
 
+  const [open, {onToggle}] = useDisclosure();
+
   return (
     <section>
       <div className="flex gap-1">
-        <h2>Completed tasks</h2>
-        <button>toggle</button>
+        <h2>Completed tasks {tasks.length > 0 && `(${tasks.length})`}</h2>
+        <button onClick={onToggle}>show completed</button>
       </div>
 
-      <TaskActionsProvider>
-        {({handleComplete, handleUpdate, handleDelete}) => (
-          <>
-            {tasks.map((task) => (
-              <TaskItem
-                key={task.id}
-                text={task.todo}
-                completed={task.completed}
-                onComplete={(completed) => handleComplete(task.id, completed)}
-                onUpdate={(data) => handleUpdate(task.id, data)}
-                onDelete={() => handleDelete(task.id)}
-              />
-            ))}
-          </>
-        )}
-      </TaskActionsProvider>
+      {open && <TaskList tasks={tasks} />}
     </section>
   );
 };
