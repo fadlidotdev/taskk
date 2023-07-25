@@ -32,6 +32,12 @@ const API = {
       url: `/todos/${id}`,
       data,
     }),
+
+  delete: (id: number) =>
+    http({
+      method: "DELETE",
+      url: `/todos/${id}`,
+    }),
 };
 
 export default API;

@@ -1,5 +1,5 @@
 import {ReactNode, useCallback} from "react";
-import {useMutationTaskComplete} from "../../api/tasks";
+import {useMutationTaskComplete, useMutationTaskDelete} from "../../api/tasks";
 
 type Handler = {
   handleUpdate: (task: string) => void;
@@ -13,6 +13,7 @@ type Props = {
 
 const TaskActionsProviders = ({children}: Props) => {
   const mutationComplete = useMutationTaskComplete();
+  const mutationDelete = useMutationTaskDelete();
 
   const handleComplete = useCallback(
     (id: number, completed: boolean) => {
@@ -25,8 +26,15 @@ const TaskActionsProviders = ({children}: Props) => {
     [],
   );
 
+  const handleDelete = useCallback(
+    (id: number) => {
+      mutationDelete.mutate(id);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+
   const handleUpdate = (task: string) => console.log(task);
-  const handleDelete = (id: number) => console.log(id);
 
   return children({handleUpdate, handleDelete, handleComplete});
 };

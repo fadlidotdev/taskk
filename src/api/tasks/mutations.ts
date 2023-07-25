@@ -85,3 +85,37 @@ export const useMutationTaskComplete = () => {
     },
   });
 };
+
+export const useMutationTaskDelete = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: API.delete,
+    onMutate: async (selectedId) => {
+      await queryClient.cancelQueries({queryKey: ["tasks"]});
+
+      const previousTasks = queryClient.getQueryData(["tasks"]);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      queryClient.setQueryData<APIGetAllTaskResponse>(["tasks"], (old: any) => {
+        const response = old as APIGetAllTaskResponse;
+
+        const oldTasks = response.todos;
+        const updatedTasks = oldTasks.filter((task) => task.id !== selectedId);
+
+        return {
+          ...old,
+          todos: updatedTasks,
+        };
+      });
+
+      return {previousTasks};
+    },
+    onError: (_, __, context) => {
+      queryClient.setQueryData(["todos"], context?.previousTasks);
+    },
+    onSettled: () => {
+      // queryClient.invalidateQueries({queryKey: ["tasks"]});
+    },
+  });
+};

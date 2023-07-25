@@ -17,7 +17,7 @@ const TaskListComplete = (props: Props) => {
       </div>
 
       <TaskActionsProvider>
-        {({handleComplete}) => (
+        {({handleComplete, handleDelete}) => (
           <>
             {tasks.map((task) => (
               <TaskItem
@@ -26,7 +26,7 @@ const TaskListComplete = (props: Props) => {
                 completed={task.completed}
                 onUpdate={() => {}}
                 onComplete={(completed) => handleComplete(task.id, completed)}
-                onDelete={() => {}}
+                onDelete={() => handleDelete(task.id)}
               />
             ))}
           </>

@@ -9,7 +9,7 @@ type Props = {
 };
 
 const TaskItem = (props: Props) => {
-  const {title, completed, onComplete} = props;
+  const {title, completed, onComplete, onDelete} = props;
 
   // TODO: Move this into state
   const edit = false;
@@ -29,7 +29,7 @@ const TaskItem = (props: Props) => {
 
       <div className="flex gap-1">
         <button>Edit</button>
-        <button>Delete</button>
+        <button onClick={onDelete}>Delete</button>
       </div>
     </div>
   );
