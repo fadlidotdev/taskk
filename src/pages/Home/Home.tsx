@@ -13,6 +13,7 @@ const Home = () => {
   const [search, setSearch] = useState("");
 
   const {data, isLoading, error} = useQueryGetAllTask();
+  console.log("🚀 ~ Home ~ data:", data);
   console.log("🚀 ~ Home ~ error:", error);
   console.log("🚀 ~ Home ~ isLoading:", isLoading);
 
