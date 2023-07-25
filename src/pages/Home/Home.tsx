@@ -1,61 +1,49 @@
+import Greeting from "../../components/Greeting";
+import TaskCreate from "../../components/TaskCreate";
+import TaskListComplete from "../../components/TaskListComplete";
+import TaskListUncomplete from "../../components/TaskListUncomplete";
+import TaskSearch from "../../components/TaskSearch";
+import TaskSummary from "../../components/TaskSummary";
+
 const UNCOMPLETED = [
-  {id: 1, todo: "Do something nice for someone I care about", completed: false},
-  {id: 2, todo: "Do another thing", completed: false},
+  {
+    id: 1,
+    todo: "Do something nice for someone I care about",
+    completed: false,
+    userId: 1,
+  },
+  {id: 2, todo: "Do another thing", completed: false, userId: 1},
 ];
 
 const COMPLETED = [
-  {id: 3, todo: "Completed todo 1", completed: true},
-  {id: 4, todo: "Completed todo 2", completed: true},
+  {id: 3, todo: "Completed todo 1", completed: true, userId: 1},
+  {id: 4, todo: "Completed todo 2", completed: true, userId: 1},
 ];
 
 const Home = () => {
   return (
     <>
-      <header className="flex justify-between p-5">
+      <header className="flex justify-between max-w-2xl p-5">
         <div>
-          <h1>Welcome back, Stan</h1>
-          <p>You've got 7 tasks coming up, get it done!</p>
+          <Greeting />
+          <TaskSummary />
         </div>
 
-        <div>
-          <input type="text" placeholder="Search taskk" />
-        </div>
+        <TaskSearch />
 
+        {/* TODO: Add this to layout */}
         <div className="flex">
           <button>Dark Mode</button>
           <button>Log out</button>
         </div>
       </header>
 
-      <main className="p-5">
-        <form>
-          <input type="checkbox" />
-          <input type="text" placeholder="Add a new task..." />
-          <button>Add</button>
-        </form>
+      <main className="max-w-lg p-5">
+        <TaskCreate />
 
-        <section>
-          {UNCOMPLETED.map((task) => (
-            <div key={task.id}>
-              <input type="checkbox" />
-              <span>{task.todo}</span>
-            </div>
-          ))}
-        </section>
+        <TaskListUncomplete tasks={UNCOMPLETED} />
 
-        <section>
-          <div className="flex gap-1">
-            <h2>Completed tasks</h2>
-            <button>toggle</button>
-          </div>
-
-          {COMPLETED.map((task) => (
-            <div key={task.id}>
-              <input type="checkbox" checked />
-              <span>{task.todo}</span>
-            </div>
-          ))}
-        </section>
+        <TaskListComplete tasks={COMPLETED} />
       </main>
     </>
   );
