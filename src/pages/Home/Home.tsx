@@ -1,35 +1,49 @@
+import {useEffect, useMemo, useState} from "react";
+
+import {useQueryGetAllTask} from "../../api/tasks";
 import Greeting from "../../components/Greeting";
 import TaskCreate from "../../components/TaskCreate";
 import TaskListComplete from "../../components/TaskListComplete";
 import TaskListUncomplete from "../../components/TaskListUncomplete";
 import TaskSearch from "../../components/TaskSearch";
 import TaskSummary from "../../components/TaskSummary";
-
-const UNCOMPLETED = [
-  {
-    id: 1,
-    todo: "Do something nice for someone I care about",
-    completed: false,
-    userId: 1,
-  },
-  {id: 2, todo: "Do another thing", completed: false, userId: 1},
-];
-
-const COMPLETED = [
-  {id: 3, todo: "Completed todo 1", completed: true, userId: 1},
-  {id: 4, todo: "Completed todo 2", completed: true, userId: 1},
-];
+import {toast} from "react-hot-toast";
 
 const Home = () => {
+  const [search, setSearch] = useState("");
+
+  const {data, isLoading, error} = useQueryGetAllTask();
+  console.log("🚀 ~ Home ~ error:", error);
+  console.log("🚀 ~ Home ~ isLoading:", isLoading);
+
+  const uncompleteTasks = useMemo(
+    () =>
+      data.filter(
+        (task) =>
+          !task.completed &&
+          task.todo.toLowerCase().includes(search.toLowerCase()),
+      ),
+    [data, search],
+  );
+
+  const completedTasks = useMemo(
+    () => data.filter((task) => task.completed),
+    [data],
+  );
+
+  useEffect(() => {
+    if (error) toast.error(error);
+  }, [error]);
+
   return (
     <>
       <header className="flex justify-between max-w-2xl p-5">
         <div>
           <Greeting />
-          <TaskSummary />
+          <TaskSummary count={data.length} />
         </div>
 
-        <TaskSearch />
+        <TaskSearch search={search} onSearchChange={setSearch} />
 
         {/* TODO: Add this to layout */}
         <div className="flex">
@@ -41,9 +55,9 @@ const Home = () => {
       <main className="max-w-lg p-5">
         <TaskCreate />
 
-        <TaskListUncomplete tasks={UNCOMPLETED} />
+        <TaskListUncomplete tasks={uncompleteTasks} />
 
-        <TaskListComplete tasks={COMPLETED} />
+        <TaskListComplete tasks={completedTasks} />
       </main>
     </>
   );

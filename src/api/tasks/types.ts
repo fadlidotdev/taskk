@@ -4,3 +4,10 @@ export type Task = {
   completed: boolean;
   userId: number;
 };
+
+export type APIGetAllTaskResponse = {
+  todos: Task[];
+  total: number;
+  skip: number;
+  limit: number;
+};

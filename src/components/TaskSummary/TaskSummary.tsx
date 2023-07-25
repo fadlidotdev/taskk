@@ -1,5 +1,9 @@
-const TaskSummary = () => {
-  return <p>You've got 7 tasks coming up, get it done!</p>;
+type Props = {
+  count: number;
+};
+
+const TaskSummary = ({count}: Props) => {
+  return <p>You've got {count} tasks coming up, get it done!</p>;
 };
 
 export default TaskSummary;
