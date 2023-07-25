@@ -26,11 +26,13 @@ const API = {
       },
     }),
 
-  update: (id: number, data: TaskBody) =>
+  update: (data: {id: number; task: Omit<TaskBody, "userId">}) =>
     http({
       method: "PUT",
-      url: `/todos/${id}`,
-      data,
+      url: `/todos/${data.id}`,
+      data: {
+        ...data.task,
+      },
     }),
 
   delete: (id: number) =>

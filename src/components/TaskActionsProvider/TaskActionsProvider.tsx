@@ -1,8 +1,13 @@
 import {ReactNode, useCallback} from "react";
-import {useMutationTaskComplete, useMutationTaskDelete} from "../../api/tasks";
+import {
+  TaskBody,
+  useMutationTaskComplete,
+  useMutationTaskDelete,
+  useMutationTaskUpdate,
+} from "../../api/tasks";
 
 type Handler = {
-  handleUpdate: (task: string) => void;
+  handleUpdate: (id: number, task: Omit<TaskBody, "userId">) => void;
   handleDelete: (id: number) => void;
   handleComplete: (id: number, completed: boolean) => void;
 };
@@ -13,6 +18,7 @@ type Props = {
 
 const TaskActionsProviders = ({children}: Props) => {
   const mutationComplete = useMutationTaskComplete();
+  const mutationUpdate = useMutationTaskUpdate();
   const mutationDelete = useMutationTaskDelete();
 
   const handleComplete = useCallback(
@@ -26,6 +32,14 @@ const TaskActionsProviders = ({children}: Props) => {
     [],
   );
 
+  const handleUpdate = useCallback(
+    (id: number, task: Omit<TaskBody, "userId">) => {
+      mutationUpdate.mutate({id, task});
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+
   const handleDelete = useCallback(
     (id: number) => {
       mutationDelete.mutate(id);
@@ -33,8 +47,6 @@ const TaskActionsProviders = ({children}: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
-
-  const handleUpdate = (task: string) => console.log(task);
 
   return children({handleUpdate, handleDelete, handleComplete});
 };

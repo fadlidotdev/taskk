@@ -12,15 +12,15 @@ const TaskListUncomplete = (props: Props) => {
   return (
     <section>
       <TaskActionsProvider>
-        {({handleComplete, handleDelete}) => (
+        {({handleComplete, handleUpdate, handleDelete}) => (
           <>
             {tasks.map((task) => (
               <TaskItem
                 key={task.id}
-                title={task.todo}
+                text={task.todo}
                 completed={task.completed}
-                onUpdate={() => {}}
                 onComplete={(completed) => handleComplete(task.id, completed)}
+                onUpdate={(data) => handleUpdate(task.id, data)}
                 onDelete={() => handleDelete(task.id)}
               />
             ))}

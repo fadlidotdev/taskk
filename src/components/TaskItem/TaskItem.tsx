@@ -1,20 +1,33 @@
-import TaskForm from "../TaskForm/TaskForm";
+import {useState} from "react";
+import TaskForm, {TaskFormValues} from "../TaskForm/TaskForm";
+import {TaskBody} from "../../api/tasks";
 
 type Props = {
-  title: string;
+  text: string;
   completed: boolean;
-  onUpdate: () => void;
+  onUpdate: (task: Omit<TaskBody, "userId">) => void;
   onDelete: () => void;
   onComplete: (state: boolean) => void;
 };
 
 const TaskItem = (props: Props) => {
-  const {title, completed, onComplete, onDelete} = props;
+  const {text, completed, onComplete, onUpdate, onDelete} = props;
 
-  // TODO: Move this into state
-  const edit = false;
+  const [edit, setEdit] = useState(false);
 
-  if (edit) return <TaskForm onSubmit={() => {}} />;
+  const handleEdit = (taskFormValues: TaskFormValues) => {
+    const {completed, text} = taskFormValues;
+
+    onUpdate({
+      todo: text,
+      completed,
+    });
+
+    setEdit(false);
+  };
+
+  if (edit)
+    return <TaskForm edit initialTextValue={text} onSubmit={handleEdit} />;
 
   return (
     <div className="flex justify-between">
@@ -24,11 +37,11 @@ const TaskItem = (props: Props) => {
           checked={completed}
           onChange={(e) => onComplete(e.target.checked)}
         />
-        <span>{title}</span>
+        <span>{text}</span>
       </div>
 
       <div className="flex gap-1">
-        <button>Edit</button>
+        <button onClick={() => setEdit(true)}>Edit</button>
         <button onClick={onDelete}>Delete</button>
       </div>
     </div>

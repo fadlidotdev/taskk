@@ -6,14 +6,22 @@ export type TaskFormValues = {
 };
 
 type Props = {
+  edit?: boolean;
+  initialTextValue?: string;
+  initialCompleteValue?: boolean;
   onSubmit: (task: TaskFormValues) => void;
 };
 
 const TaskForm = (props: Props) => {
-  const {onSubmit} = props;
+  const {
+    edit,
+    initialTextValue = "",
+    initialCompleteValue = false,
+    onSubmit,
+  } = props;
 
-  const [text, setText] = useState("");
-  const [completed, setCompleted] = useState(false);
+  const [text, setText] = useState(initialTextValue);
+  const [completed, setCompleted] = useState(initialCompleteValue);
 
   const clearForm = () => {
     setText("");
@@ -42,7 +50,7 @@ const TaskForm = (props: Props) => {
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button type="submit">Submit</button>
+      <button type="submit">{edit ? "Update" : "Submit"}</button>
     </form>
   );
 };
