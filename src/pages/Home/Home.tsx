@@ -58,7 +58,9 @@ const Home = () => {
 
         <TaskListUncomplete tasks={uncompleteTasks} />
 
-        <TaskListComplete tasks={completedTasks} />
+        {completedTasks.length > 0 && (
+          <TaskListComplete tasks={completedTasks} />
+        )}
       </main>
     </>
   );

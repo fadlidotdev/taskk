@@ -14,7 +14,7 @@ const TaskListComplete = (props: Props) => {
   return (
     <section>
       <div className="flex gap-1">
-        <h2>Completed tasks {tasks.length > 0 && `(${tasks.length})`}</h2>
+        <h2>Completed tasks {tasks.length}</h2>
         <button onClick={onToggle}>show completed</button>
       </div>
 
