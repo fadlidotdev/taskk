@@ -14,3 +14,10 @@ export const getRandomNumber = () => {
 
   return Math.round(scaled);
 };
+
+export const replaceAll = (value: string, find: string, replace: string) => {
+  if (!value) return "";
+
+  const searchRegExp = new RegExp(find, "g");
+  return value.replace(searchRegExp, replace);
+};

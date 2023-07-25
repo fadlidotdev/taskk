@@ -6,6 +6,7 @@ import axios, {
   AxiosRequestHeaders,
   AxiosResponse,
 } from "axios";
+import {replaceAll} from "./core";
 
 type ConfigOptions = {
   isAuth?: boolean;
@@ -26,7 +27,11 @@ const createAxios = (config?: ConfigOptions) => {
         const accessToken = localStorage.getItem(constants("accessToken"));
 
         if (accessToken) {
-          request.headers.Authorization = `Bearer ${accessToken}`;
+          request.headers.Authorization = `Bearer ${replaceAll(
+            accessToken,
+            '"',
+            "",
+          )}`;
         }
       }
 

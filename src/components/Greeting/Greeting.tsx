@@ -1,5 +1,9 @@
+import useAuth from "../../hooks/useAuth";
+
 const Greeting = () => {
-  return <h1>Welcome back, Stan</h1>;
+  const {userProfile} = useAuth();
+
+  return <h1>Welcome back, {userProfile?.firstName}</h1>;
 };
 
 export default Greeting;

@@ -1,7 +1,14 @@
+import {useContext} from "react";
+import {appContext} from "../contexts/AppContextsProvider";
+
 const useAuth = () => {
-  // TODO: Update this get from localStorage
+  const {accessToken, userProfile, login, logout} = useContext(appContext);
+
   return {
-    id: 15,
+    accessToken,
+    userProfile,
+    login,
+    logout,
   };
 };
 export default useAuth;

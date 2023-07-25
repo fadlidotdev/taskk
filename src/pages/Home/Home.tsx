@@ -1,5 +1,6 @@
 import {useEffect, useMemo, useState} from "react";
 
+import {toast} from "react-hot-toast";
 import {useQueryTaskGetAll} from "../../api/tasks";
 import Greeting from "../../components/Greeting";
 import TaskCreate from "../../components/TaskCreate";
@@ -7,9 +8,11 @@ import TaskListComplete from "../../components/TaskListComplete";
 import TaskListUncomplete from "../../components/TaskListUncomplete";
 import TaskSearch from "../../components/TaskSearch";
 import TaskSummary from "../../components/TaskSummary";
-import {toast} from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
 
 const Home = () => {
+  const {logout} = useAuth();
+
   const [search, setSearch] = useState("");
 
   const {data, isLoading, error} = useQueryTaskGetAll();
@@ -49,7 +52,12 @@ const Home = () => {
         {/* TODO: Add this to layout */}
         <div className="flex">
           <button>Dark Mode</button>
-          <button>Log out</button>
+          <button
+            onClick={() => {
+              logout();
+            }}>
+            Log out
+          </button>
         </div>
       </header>
 

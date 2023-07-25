@@ -1,5 +1,6 @@
 const constantsObject = {
   accessToken: "__accessToken",
+  userProfile: "__userProfile",
 };
 
 export type Constant = keyof typeof constantsObject;
