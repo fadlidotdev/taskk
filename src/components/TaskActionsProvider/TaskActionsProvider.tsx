@@ -1,10 +1,11 @@
-import {ReactNode, useCallback} from "react";
+import {ReactNode, useCallback, useEffect} from "react";
 import {
   TaskBody,
   useMutationTaskComplete,
   useMutationTaskDelete,
   useMutationTaskUpdate,
 } from "../../api/tasks";
+import {toast} from "react-hot-toast";
 
 type Handler = {
   handleUpdate: (id: number, task: Omit<TaskBody, "userId">) => void;
@@ -20,6 +21,15 @@ const TaskActionsProviders = ({children}: Props) => {
   const mutationComplete = useMutationTaskComplete();
   const mutationUpdate = useMutationTaskUpdate();
   const mutationDelete = useMutationTaskDelete();
+
+  useEffect(() => {
+    const error =
+      (mutationComplete.error as string) ||
+      (mutationUpdate.error as string) ||
+      (mutationDelete.error as string);
+
+    if (error) toast.error(error);
+  }, [mutationComplete.error, mutationUpdate.error, mutationDelete.error]);
 
   const handleComplete = useCallback(
     (id: number, completed: boolean) => {

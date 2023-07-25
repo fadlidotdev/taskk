@@ -8,6 +8,7 @@ import TaskListComplete from "../../components/TaskListComplete";
 import TaskListUncomplete from "../../components/TaskListUncomplete";
 import TaskSearch from "../../components/TaskSearch";
 import TaskSummary from "../../components/TaskSummary";
+import {Button, ContentLoader, IconButton} from "../../components/common";
 import useAuth from "../../hooks/useAuth";
 
 const Home = () => {
@@ -16,9 +17,6 @@ const Home = () => {
   const [search, setSearch] = useState("");
 
   const {data, isLoading, error} = useQueryTaskGetAll();
-  console.log("🚀 ~ Home ~ data:", data);
-  console.log("🚀 ~ Home ~ error:", error);
-  console.log("🚀 ~ Home ~ isLoading:", isLoading);
 
   const uncompleteTasks = useMemo(
     () =>
@@ -41,34 +39,48 @@ const Home = () => {
 
   return (
     <>
-      <header className="flex justify-between max-w-2xl p-5">
-        <div>
+      <header className="flex items-start justify-between">
+        <div className="space-y-2">
           <Greeting />
-          <TaskSummary count={uncompleteTasks.length} />
+          {!isLoading && <TaskSummary count={uncompleteTasks.length} />}
         </div>
 
-        <TaskSearch search={search} onSearchChange={setSearch} />
-
-        {/* TODO: Add this to layout */}
-        <div className="flex">
-          <button>Dark Mode</button>
-          <button
+        <div className="flex items-center">
+          <Button
+            variant="ghost"
+            size="small"
             onClick={() => {
               logout();
             }}>
             Log out
-          </button>
+          </Button>
+
+          <IconButton variant="ghost">
+            <img src="/icons/sun.svg" width={20} height={20} alt="Log out" />
+          </IconButton>
         </div>
       </header>
 
-      <main className="max-w-lg p-5">
+      <div className="my-4">
+        <TaskSearch search={search} onSearchChange={setSearch} />
+      </div>
+
+      <main>
         <TaskCreate />
 
-        <TaskListUncomplete tasks={uncompleteTasks} />
+        <div className="mt-8 space-y-4">
+          {isLoading ? (
+            <ContentLoader height={200} isRounded />
+          ) : (
+            <>
+              <TaskListUncomplete tasks={uncompleteTasks} />
 
-        {completedTasks.length > 0 && (
-          <TaskListComplete tasks={completedTasks} />
-        )}
+              {completedTasks.length > 0 ? (
+                <TaskListComplete tasks={completedTasks} />
+              ) : null}
+            </>
+          )}
+        </div>
       </main>
     </>
   );

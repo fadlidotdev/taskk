@@ -11,7 +11,7 @@ const TaskList = (props: Props) => {
   return (
     <TaskActionsProviders>
       {({handleComplete, handleUpdate, handleDelete}) => (
-        <>
+        <div className="space-y-4">
           {tasks.map((task) => (
             <TaskItem
               key={task.id}
@@ -22,7 +22,7 @@ const TaskList = (props: Props) => {
               onDelete={() => handleDelete(task.id)}
             />
           ))}
-        </>
+        </div>
       )}
     </TaskActionsProviders>
   );

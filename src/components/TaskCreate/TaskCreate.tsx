@@ -3,14 +3,14 @@ import useAuth from "../../hooks/useAuth";
 import TaskForm, {TaskFormValues} from "../TaskForm";
 
 const TaskCreate = () => {
-  const auth = useAuth();
+  const {userProfile} = useAuth();
 
   const mutation = useMutationTaskCreate();
 
   const handleSubmit = (task: TaskFormValues) => {
     const {text, completed} = task;
 
-    mutation.mutate({todo: text, completed, userId: auth.id});
+    mutation.mutate({todo: text, completed, userId: userProfile?.id as number});
   };
 
   return <TaskForm onSubmit={handleSubmit} />;

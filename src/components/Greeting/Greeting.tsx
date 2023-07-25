@@ -3,7 +3,12 @@ import useAuth from "../../hooks/useAuth";
 const Greeting = () => {
   const {userProfile} = useAuth();
 
-  return <h1>Welcome back, {userProfile?.firstName}</h1>;
+  return (
+    <h1 className="text-2xl font-semibold">
+      Welcome back,{" "}
+      <span className="text-orange-400">{userProfile?.firstName}</span>
+    </h1>
+  );
 };
 
 export default Greeting;

@@ -2,10 +2,16 @@ type Props = {
   count: number;
 };
 
-const TaskSummary = ({count}: Props) => {
-  if (count === 0) return <p>No tasks left. Relax!</p>;
+const className = "text-sm font-light text-gray-500";
 
-  return <p>You've got {count} tasks coming up, get it done!</p>;
+const TaskSummary = ({count}: Props) => {
+  if (count === 0) return <p className={className}>No tasks left. Relax!</p>;
+
+  return (
+    <p className={className}>
+      You've got {count} tasks coming up, get it done!
+    </p>
+  );
 };
 
 export default TaskSummary;

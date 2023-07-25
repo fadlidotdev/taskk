@@ -1,6 +1,7 @@
 import {useState} from "react";
 import TaskForm, {TaskFormValues} from "../TaskForm/TaskForm";
 import {TaskBody} from "../../api/tasks";
+import {Button, Checkbox} from "../common";
 
 type Props = {
   text: string;
@@ -32,17 +33,20 @@ const TaskItem = (props: Props) => {
   return (
     <div className="flex justify-between">
       <div className="flex gap-1">
-        <input
-          type="checkbox"
+        <Checkbox
+          label={text}
           checked={completed}
           onChange={(e) => onComplete(e.target.checked)}
         />
-        <span>{text}</span>
       </div>
 
       <div className="flex gap-1">
-        <button onClick={() => setEdit(true)}>Edit</button>
-        <button onClick={onDelete}>Delete</button>
+        <Button size="small" variant="alternate" onClick={() => setEdit(true)}>
+          Edit
+        </Button>
+        <Button size="small" variant="ghost" onClick={onDelete}>
+          Delete
+        </Button>
       </div>
     </div>
   );

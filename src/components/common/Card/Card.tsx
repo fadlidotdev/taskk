@@ -1,8 +1,8 @@
-import React, {HTMLProps} from "react";
+import {HTMLProps, ReactNode} from "react";
 import {classes} from "../../../utils/core";
 
 interface Props extends HTMLProps<HTMLDivElement> {
-  children: JSX.Element | JSX.Element[];
+  children: ReactNode;
 }
 
 const Card = ({children, className, ...otherProps}: Props) => {

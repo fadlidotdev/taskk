@@ -1,4 +1,5 @@
 import {ChangeEvent, Dispatch, SetStateAction} from "react";
+import {TextField} from "../common";
 
 type Props = {
   search: string;
@@ -11,8 +12,7 @@ const TaskSearch = ({search, onSearchChange}: Props) => {
   };
 
   return (
-    <input
-      type="text"
+    <TextField
       placeholder="Search taskk"
       value={search}
       onChange={handleChange}

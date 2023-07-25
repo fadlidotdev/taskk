@@ -1,4 +1,5 @@
 import {ChangeEvent, useState} from "react";
+import {Button, Checkbox, TextField} from "../common";
 
 export type TaskFormValues = {
   text: string;
@@ -38,19 +39,22 @@ const TaskForm = (props: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="checkbox"
-        checked={completed}
-        onChange={(e) => setCompleted(e.target.checked)}
-      />
-      <input
-        type="text"
-        placeholder="Add a new task..."
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <button type="submit">{edit ? "Update" : "Submit"}</button>
+    <form onSubmit={handleSubmit} className="flex items-center">
+      <div className="flex items-center w-full gap-2 mr-2">
+        <Checkbox
+          checked={completed}
+          onChange={(e) => setCompleted(e.target.checked)}
+        />
+        <TextField
+          placeholder="Add a new task..."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          divClass="w-full"
+        />
+      </div>
+      <Button variant={edit ? "alternate" : "main"} type="submit">
+        {edit ? "Update" : "Submit"}
+      </Button>
     </form>
   );
 };
