@@ -12,16 +12,20 @@ const TaskListUncomplete = (props: Props) => {
   return (
     <section>
       <TaskActionsProvider>
-        {tasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            title={task.todo}
-            completed={task.completed}
-            onUpdate={() => {}}
-            onComplete={() => {}}
-            onDelete={() => {}}
-          />
-        ))}
+        {({handleComplete}) => (
+          <>
+            {tasks.map((task) => (
+              <TaskItem
+                key={task.id}
+                title={task.todo}
+                completed={task.completed}
+                onUpdate={() => {}}
+                onComplete={(completed) => handleComplete(task.id, completed)}
+                onDelete={() => {}}
+              />
+            ))}
+          </>
+        )}
       </TaskActionsProvider>
     </section>
   );

@@ -3,7 +3,7 @@ import API from "./api";
 import {useMemo} from "react";
 import {APIGetAllTaskResponse} from ".";
 
-export const useQueryGetAllTask = () => {
+export const useQueryTaskGetAll = () => {
   const {data, ...others} = useQuery<APIGetAllTaskResponse, string>({
     queryKey: ["tasks"],
     queryFn: () => API.getAll(),

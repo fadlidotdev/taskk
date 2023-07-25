@@ -1,1 +1,1 @@
-export {default} from "./TaskForm";
+export {default, type TaskFormValues} from "./TaskForm";

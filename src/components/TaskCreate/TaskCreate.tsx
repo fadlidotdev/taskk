@@ -1,11 +1,11 @@
-import {useMutationCreateTask} from "../../api/tasks";
+import {useMutationTaskCreate} from "../../api/tasks";
 import useAuth from "../../hooks/useAuth";
-import TaskForm, {TaskFormValues} from "../TaskForm/TaskForm";
+import TaskForm, {TaskFormValues} from "../TaskForm";
 
 const TaskCreate = () => {
   const auth = useAuth();
 
-  const mutation = useMutationCreateTask();
+  const mutation = useMutationTaskCreate();
 
   const handleSubmit = (task: TaskFormValues) => {
     const {text, completed} = task;

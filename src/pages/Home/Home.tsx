@@ -1,6 +1,6 @@
 import {useEffect, useMemo, useState} from "react";
 
-import {useQueryGetAllTask} from "../../api/tasks";
+import {useQueryTaskGetAll} from "../../api/tasks";
 import Greeting from "../../components/Greeting";
 import TaskCreate from "../../components/TaskCreate";
 import TaskListComplete from "../../components/TaskListComplete";
@@ -12,7 +12,7 @@ import {toast} from "react-hot-toast";
 const Home = () => {
   const [search, setSearch] = useState("");
 
-  const {data, isLoading, error} = useQueryGetAllTask();
+  const {data, isLoading, error} = useQueryTaskGetAll();
   console.log("🚀 ~ Home ~ data:", data);
   console.log("🚀 ~ Home ~ error:", error);
   console.log("🚀 ~ Home ~ isLoading:", isLoading);

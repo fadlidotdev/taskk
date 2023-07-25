@@ -6,3 +6,11 @@ export const empty = (value: string | null | undefined) => {
 };
 
 export const classes = (...inputs: ClassValue[]) => twMerge(clsx(...inputs));
+
+export const getRandomNumber = () => {
+  const random = Math.random();
+
+  const scaled = random * 90 + 10;
+
+  return Math.round(scaled);
+};

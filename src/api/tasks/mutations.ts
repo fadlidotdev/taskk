@@ -1,8 +1,9 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import API from "./api";
-import {APIGetAllTaskResponse} from ".";
+import {APIGetAllTaskResponse} from "./types";
+import {getRandomNumber} from "../../utils/core";
 
-export const useMutationCreateTask = () => {
+export const useMutationTaskCreate = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -19,12 +20,54 @@ export const useMutationCreateTask = () => {
         const oldTasks = response.todos;
         const updatedTasks = [
           {
-            // TODO: Update this to use random id
-            id: 11,
+            id: getRandomNumber(),
             ...newTask,
           },
           ...oldTasks,
         ];
+
+        return {
+          ...old,
+          todos: updatedTasks,
+        };
+      });
+
+      return {previousTasks};
+    },
+    onError: (_, __, context) => {
+      queryClient.setQueryData(["todos"], context?.previousTasks);
+    },
+    onSettled: () => {
+      // queryClient.invalidateQueries({queryKey: ["tasks"]});
+    },
+  });
+};
+
+export const useMutationTaskComplete = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: API.complete,
+    onMutate: async (selectedTask) => {
+      await queryClient.cancelQueries({queryKey: ["tasks"]});
+
+      const previousTasks = queryClient.getQueryData(["tasks"]);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      queryClient.setQueryData<APIGetAllTaskResponse>(["tasks"], (old: any) => {
+        const response = old as APIGetAllTaskResponse;
+
+        const oldTasks = response.todos;
+        const updatedTasks = oldTasks.map((task) => {
+          if (task.id === selectedTask.id) {
+            return {
+              ...task,
+              completed: selectedTask.completed,
+            };
+          }
+
+          return task;
+        });
 
         return {
           ...old,
