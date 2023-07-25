@@ -1,10 +1,9 @@
 import {useEffect} from "react";
-import {RouteProps} from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
-interface Props extends RouteProps {
+type Props = {
   children: JSX.Element;
-}
+};
 
 const PrivateRoute = ({children}: Props) => {
   const {accessToken} = useAuth();
