@@ -1,8 +1,8 @@
 import {useAtom, useSetAtom} from "jotai";
 import {RESET} from "jotai/utils";
 import {createContext, useMemo} from "react";
-import {APILoginResponse} from "../api/tasks/auth";
 import {atomAccessToken, atomUserProfile} from "../store";
+import {APILoginResponse} from "../api/auth";
 
 export const appContext = createContext<{
   accessToken: string | null;

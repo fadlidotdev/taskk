@@ -4,7 +4,6 @@ import {useEffect} from "react";
 import {useForm} from "react-hook-form";
 import {toast} from "react-hot-toast";
 import {z} from "zod";
-import {useMutationLogin} from "../../api/tasks/auth";
 import {
   Button,
   GithubCorner,
@@ -14,6 +13,7 @@ import {
 } from "../../components/common";
 import useAuth from "../../hooks/useAuth";
 import regex from "../../utils/regex";
+import {useMutationLogin} from "../../api/auth";
 
 const schema = z.object({
   username: z.string().nonempty("Username is required"),

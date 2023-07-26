@@ -1,4 +1,4 @@
-import {createHttp} from "../../../utils/http";
+import {createHttp} from "../../utils/http";
 import {APILoginBody} from "./types";
 
 const http = createHttp({isAuth: true});
