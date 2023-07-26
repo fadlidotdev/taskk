@@ -4,11 +4,12 @@ import {classes} from "../../../utils/core";
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   divClass?: string;
+  labelClass?: string;
   error?: string;
 }
 
 const Checkbox = forwardRef<HTMLInputElement, Props>(
-  ({className, id, label, divClass, error, ...otherProps}, ref) => {
+  ({className, id, label, divClass, labelClass, error, ...otherProps}, ref) => {
     return (
       <div className={classes("space-y-1", divClass)}>
         <div className="flex items-baseline gap-2">
@@ -26,7 +27,10 @@ const Checkbox = forwardRef<HTMLInputElement, Props>(
           {label ? (
             <label
               htmlFor={id}
-              className="relative block mb-2 font-medium -top-0.5">
+              className={classes(
+                "relative block mb-2 font-medium -top-0.5",
+                labelClass,
+              )}>
               {label}
             </label>
           ) : null}

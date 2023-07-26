@@ -2,6 +2,7 @@ import {useState} from "react";
 import TaskForm, {TaskFormValues} from "../TaskForm/TaskForm";
 import {TaskBody} from "../../api/tasks";
 import {Button, Checkbox} from "../common";
+import {classes} from "../../utils/core";
 
 type Props = {
   text: string;
@@ -28,13 +29,21 @@ const TaskItem = (props: Props) => {
   };
 
   if (edit)
-    return <TaskForm edit initialTextValue={text} onSubmit={handleEdit} />;
+    return (
+      <TaskForm
+        edit
+        initialTextValue={text}
+        initialCompleteValue={completed}
+        onSubmit={handleEdit}
+      />
+    );
 
   return (
     <div className="flex justify-between">
       <div className="flex gap-1">
         <Checkbox
           label={text}
+          labelClass={classes(completed && "line-through")}
           checked={completed}
           onChange={(e) => onComplete(e.target.checked)}
         />
