@@ -2,7 +2,7 @@ import {useAtom, useSetAtom} from "jotai";
 import {RESET} from "jotai/utils";
 import {createContext, useMemo} from "react";
 import {APILoginResponse} from "../api/tasks/auth";
-import {atomAccessToken, atomDarkMode, atomUserProfile} from "../store";
+import {atomAccessToken, atomUserProfile} from "../store";
 
 export const appContext = createContext<{
   accessToken: string | null;
@@ -22,9 +22,6 @@ type Props = {
 
 const AppContextProvider = ({children}: Props) => {
   const [accessToken, setAccessToken] = useAtom(atomAccessToken);
-
-  const [darkMode, setDarkMode] = useAtom(atomDarkMode);
-  console.log("🚀 ~ AppContextProvider ~ darkMode:", darkMode, setDarkMode);
 
   const [userProfile, setUserProfile] = useAtom(atomUserProfile);
   const storeAccessToken = useSetAtom(atomAccessToken);

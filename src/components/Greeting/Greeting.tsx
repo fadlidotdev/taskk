@@ -6,7 +6,9 @@ const Greeting = () => {
   return (
     <h1 className="text-2xl font-semibold">
       Welcome back,{" "}
-      <span className="text-orange-400">{userProfile?.firstName}</span>
+      <span className="text-orange-400 dark:text-orange-700">
+        {userProfile?.firstName}
+      </span>
     </h1>
   );
 };

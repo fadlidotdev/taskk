@@ -2,13 +2,14 @@ import {useEffect, useMemo, useState} from "react";
 
 import {toast} from "react-hot-toast";
 import {useQueryTaskGetAll} from "../../api/tasks";
+import DarkMode from "../../components/DarkMode";
 import Greeting from "../../components/Greeting";
 import TaskCreate from "../../components/TaskCreate";
 import TaskListComplete from "../../components/TaskListComplete";
 import TaskListUncomplete from "../../components/TaskListUncomplete";
 import TaskSearch from "../../components/TaskSearch";
 import TaskSummary from "../../components/TaskSummary";
-import {Button, ContentLoader, IconButton} from "../../components/common";
+import {Button, ContentLoader} from "../../components/common";
 import useAuth from "../../hooks/useAuth";
 
 const Home = () => {
@@ -55,9 +56,7 @@ const Home = () => {
             Log out
           </Button>
 
-          <IconButton variant="ghost">
-            <img src="/icons/sun.svg" width={20} height={20} alt="Log out" />
-          </IconButton>
+          <DarkMode />
         </div>
       </header>
 

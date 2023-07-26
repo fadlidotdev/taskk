@@ -15,11 +15,12 @@ const TaskList = (props: Props) => {
           {tasks.map((task) => (
             <TaskItem
               key={task.id}
+              id={task.id}
               text={task.todo}
               completed={task.completed}
-              onComplete={(completed) => handleComplete(task.id, completed)}
-              onUpdate={(data) => handleUpdate(task.id, data)}
-              onDelete={() => handleDelete(task.id)}
+              onComplete={handleComplete}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
             />
           ))}
         </div>

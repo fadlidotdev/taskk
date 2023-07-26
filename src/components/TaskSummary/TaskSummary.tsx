@@ -2,7 +2,7 @@ type Props = {
   count: number;
 };
 
-const className = "text-sm font-light text-gray-500";
+const className = "text-sm font-light text-gray-500 dark:text-gray-400";
 
 const TaskSummary = ({count}: Props) => {
   if (count === 0) return <p className={className}>No tasks left. Relax!</p>;

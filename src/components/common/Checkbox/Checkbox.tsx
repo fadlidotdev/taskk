@@ -28,7 +28,7 @@ const Checkbox = forwardRef<HTMLInputElement, Props>(
             <label
               htmlFor={id}
               className={classes(
-                "relative block mb-2 font-medium -top-0.5",
+                "relative block mb-2 font-medium -top-0.5 dark:text-gray-100",
                 labelClass,
               )}>
               {label}
